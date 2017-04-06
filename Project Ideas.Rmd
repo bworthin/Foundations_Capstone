@@ -1,7 +1,7 @@
-#Data Science Foundations: Project Ideas
-##Brandy Worthington
+# Data Science Foundations: Project Ideas  
+## Brandy Worthington  
 
-###Topic 1: Determining trustworthiness of Yelp reviewers
+### Topic 1: Determining trustworthiness of Yelp reviewers
 
 [Yelp academic dataset](https://www.yelp.com/dataset_challenge/dataset)
 
@@ -24,7 +24,7 @@ This could be used by Yelp to remove suspicious scores from ratings calculation,
 
 
 
-###Topic 2: Predicting the next ‘hot’ housing markets
+### Topic 2: Predicting the next ‘hot’ housing markets
 
 [House Price Index](https://www.fhfa.gov/DataTools/Downloads/Pages/House-Price-Index-Datasets.aspx#atvol)  
 - Under *Additional Data*, *Annual House Price Indexes*, [by Five-Digit Zip Codes](https://www.fhfa.gov/DataTools/Downloads/Documents/HPI/HPI_AT_BDL_ZIP5.xlsx) 
@@ -46,7 +46,7 @@ Real estate agents and potential buyers could get a better idea of what areas wi
 
 
 
-###Topic 3: Predicting commercial bank failures based on customer complaints
+### Topic 3: Predicting commercial bank failures based on customer complaints
 
 [US Consumer Finance Complaints](https://www.kaggle.com/cfpb/us-consumer-finance-complaints)  
 [Commercial Bank Failures, 1934-Present](https://www.kaggle.com/fdic/bank-failures)
