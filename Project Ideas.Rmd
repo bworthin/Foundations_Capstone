@@ -15,6 +15,7 @@ I would work to identify patterns of behavior, reviewer profile, and comment cha
 - Are there indicators in behavior, comments, or profile characteristics that are associated with consistently outlying scores?  
 
 **Outcomes:**  
+
 This could be used by Yelp to remove suspicious scores from ratings calculation, or to flag specific reviews to let users know that they may not be reliable.  
 
 **Issues:**    
@@ -38,6 +39,7 @@ This could be used by Yelp to remove suspicious scores from ratings calculation,
 I propose examining data for cities whose housing prices have seen significant growth (what constitutes that TBD)  over a particular period of time (5-10 years). Then, looking at data for the 5 years prior to the start of that growth, I could look for a pattern of characteristics for those cities that could be used to predict the increase in prices. This model could then be used to predict what areas are poised for similar growth in the next 5 years.
 
 **Outcomes:**  
+
 Real estate agents and potential buyers could get a better idea of what areas will be ‘hot’ over the next 5 years and likely to offer profitable investment opportunities
 
 **Issues:**  
@@ -52,6 +54,7 @@ Real estate agents and potential buyers could get a better idea of what areas wi
 [Commercial Bank Failures, 1934-Present](https://www.kaggle.com/fdic/bank-failures)
 
 **Questions:**  
+
 Are there patterns in type/severity/handling of consumer complaints that are associated with bank failure and may be used to predict it?
 
 I would cross-reference the consumer complaints data with the bank failure data to look for patterns in the failed banks that are significantly different from non-failed banks during a particular time period.  This might include:
@@ -60,4 +63,5 @@ I would cross-reference the consumer complaints data with the bank failure data 
 - Other indicators?
 
 **Outcome:**  
+
 Can be used to predict banks in danger based on customer complaint records. 
