@@ -1,0 +1,38 @@
+# Data Science Foundations: Capstone Proposal 
+#### Brandy Worthington 
+
+
+### Identifying Untrustworthy Yelp Reviewers 
+
+
+
+**Problem:** 
+
+* How do users know which Yelp reviews to trust? 
+* How can Yelp identify problem reviewers and reduce the impact of ‘fake’ positive or negative reviews on ratings? 
+
+**Data Set:** 
+
+I will download the [Yelp academic dataset](https://www.yelp.com/dataset_challenge/dataset)  
+
+**Approach:** 
+
+I will identify characteristics of behavior, scoring, comments, and reviewer profiles that indicate untrustworthy reviews. If we assume as a starting point that the median rating of a particular restaurant approaches ‘truth’ as the total number of reviews increases, I will select data for restaurants who meet a particular threshold for number of reviews, then examine responses that are significant outliers for patterns. This will require: 
+
+* Setting a threshold for number of reviews required in order to select restaurants for analysis  
+* Calculating median rating for those restaurants, and setting threshold for what constitutes an outlier (i.e. how many standard deviations from the median) 
+* Identifying reviewers who consistently give reviews that are significant outliers, more frequently than the average reviewer  
+* Determining whether they are giving consistently positive or negative reviews  
+* Identifying any behavior, profile characteristics, comment characteristices that are associated with outlying scores 
+
+
+**Client & Outcomes:** 
+
+The client is Yelp. They can use the results of this analysis to remove suspicious scores from ratings calculations, or to flag specific reviews/users to let other users know that they may not be reliable. This will improve the overall usefulness of Yelp's ratings. 
+
+
+**Deliverables:** 
+
+* R code for cleaning and performing analysis on the data file. 
+* Clean data file used for analysis. 
+* Report detailing how and why I performed each part of the analysis, describing my conclusions, and providing recomendations for how Yelp can use this analysis going forward.
