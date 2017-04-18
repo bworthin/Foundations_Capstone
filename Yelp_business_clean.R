@@ -18,6 +18,10 @@ business_tbl_filt <- business_tbl %>%
   select(-starts_with("hours"), -starts_with("attributes"), -latitude, -longitude, 
              -neighborhood, -address, -is_open, -type, -categories) %>%
   rename(yelp_avg_rating = stars)
-  
+
+#write to new csv file (any reason to write as new json instead? simple format now)
+yelp_business_clean <- business_tbl_filt
+write.table(yelp_business_clean, "~/Foundations_Capstone/yelp_business_clean.csv", row.names = FALSE, sep = ",")
+
    
 
