@@ -14,9 +14,9 @@ business_details_df <- read_csv("~/Foundations_Capstone/Wrangling/yelp_business_
 con_in <- file("~/Foundations_Capstone/Wrangling/yelp_academic_dataset_review.json")
 con_out <- file(tmp <-tempfile(), open = "wb")
 stream_in(con_in, handler = function(df) {
-  df <- df[df$business_id %in% business_details_df$business_id]
+  df <- df[df$business_id %in% business_details_df$business_id,]
   df <- df %>%
-    select(business_id, review_id) %>%
+    select(business_id, review_id, user_id, stars) %>%
     stream_out(con_out, pagesize = 10000)
 }, pagesize = 10000)
 close(con_out)
