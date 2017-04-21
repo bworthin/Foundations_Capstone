@@ -1,4 +1,4 @@
-#Importing Yelp review file
+#Importing Yelp review file: threshold = 100 reviews
 library(readr)
 library(jsonlite)
 library(tibble)
@@ -23,17 +23,10 @@ close(con_out)
 
 bus_rev_ids <- stream_in(file(tmp))
 
-bus_rev_ids_tbl <- as_data_frame(bus_rev_ids)
+#rename stars variable - stars_given
+bus_rev_ids <- rename(bus_rev_ids, stars_given = stars) 
 
-
-
-
-
-#add review_id, user_id, and stars?
-
-
-
-#write to new csv file (any reason to write as new json instead?)
-yelp_?????_clean <- reviews_tbl
-write.table(yelp_reviews_clean, "~/Foundations_Capstone/Wrangling/yelp_reviews_clean.csv", row.names = FALSE, sep = ",")
+#write to new csv file
+yelp_bus_rev_thresh100 <- bus_rev_ids
+write.table(yelp_bus_rev_thresh100, "~/Foundations_Capstone/Wrangling/yelp_bus_rev_thresh100.csv", row.names = FALSE, sep = ",")
 
