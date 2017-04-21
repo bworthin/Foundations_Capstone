@@ -14,7 +14,7 @@ business_details_df <- read_csv("~/Foundations_Capstone/Wrangling/yelp_business_
 con_in <- file("~/Foundations_Capstone/Wrangling/yelp_academic_dataset_review.json")
 con_out <- file(tmp <-tempfile(), open = "wb")
 stream_in(con_in, handler = function(df) {
-  df <- df[df$business_id == business_details_df$business_id]
+  df <- df[df$business_id %in% business_details_df$business_id]
   df %>%
     select(business_id, review_id) %>%
     stream_out(con_out, pagesize = 10000)
@@ -27,13 +27,13 @@ bus_rev_ids_tbl <- as_data_frame(bus_rev_ids)
 
 
 
-#join the two by business_id so only business id's from business data frame are kept
-
-#stream in review_id, user_id, and stars; join to above df by review_id 
 
 
+#add review_id, user_id, and stars?
 
-#write to new csv file (any reason to write as new json instead? simple format now)
+
+
+#write to new csv file (any reason to write as new json instead?)
 yelp_?????_clean <- reviews_tbl
 write.table(yelp_reviews_clean, "~/Foundations_Capstone/Wrangling/yelp_reviews_clean.csv", row.names = FALSE, sep = ",")
 
