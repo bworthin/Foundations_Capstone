@@ -1,10 +1,10 @@
 #Importing Yelp review file
-
+library(readr)
 library(jsonlite)
 library(tibble)
 library(tidyr)
 library(dplyr)
-library(stringr)
+
 
 #load yelp_business_clean.csv into data frame 'business_details_df';contains business_id, review_count, yelp_avg_rating
 business_details_df <- read_csv("~/Foundations_Capstone/Wrangling/yelp_business_clean.csv")
@@ -15,7 +15,7 @@ con_in <- file("~/Foundations_Capstone/Wrangling/yelp_academic_dataset_review.js
 con_out <- file(tmp <-tempfile(), open = "wb")
 stream_in(con_in, handler = function(df) {
   df <- df[df$business_id %in% business_details_df$business_id]
-  df %>%
+  df <- df %>%
     select(business_id, review_id) %>%
     stream_out(con_out, pagesize = 10000)
 }, pagesize = 10000)
