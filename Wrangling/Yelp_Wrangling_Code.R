@@ -37,15 +37,15 @@ write.table(yelp_business_clean, "~/Foundations_Capstone/Wrangling/yelp_business
    
 #PART 2: Importing Yelp review file (threshold = 100 reviews) and combining with business info
 
-#Load yelp_business_clean.csv into data frame 'business_details_df';contains business_id, review_count, yelp_avg_rating
-business_details_df <- read_csv("~/Foundations_Capstone/Wrangling/yelp_business_clean.csv")
+#Load yelp_business_clean.csv into data frame 'business_clean_df';contains business_id, review_count, yelp_avg_rating
+yelp_business_clean <- read_csv("~/Foundations_Capstone/Wrangling/yelp_business_clean.csv")
 
 #Streamin review file with handler function - subset based on business_id values that match above 
 
 con_in <- file("~/Foundations_Capstone/Wrangling/yelp_academic_dataset_review.json")
 con_out <- file(tmp <-tempfile(), open = "wb")
 stream_in(con_in, handler = function(df) {
-  df <- df[df$business_id %in% business_details_df$business_id,]
+  df <- df[df$business_id %in% yelp_business_clean$business_id,]
   df <- df %>%
     select(business_id, review_id, user_id, stars, date, text) %>%
     stream_out(con_out, pagesize = 10000)
@@ -63,19 +63,19 @@ yelp_review_clean <- review_clean
 write.table(yelp_review_clean, "~/Foundations_Capstone/Wrangling/yelp_review_clean.csv", row.names = FALSE, sep = ",")
 
 #PART 3: Combining business and review data
+yelp_bus_rev_clean <- left_join(yelp_business_clean, yelp_review_clean, by = "business_id")
 
+#write combined business and review data frame to csv
+write.table(yelp_bus_rev_clean, "~/Foundations_Capstone/Wrangling/yelp_bus_rev_clean.csv", row.names = FALSE, sep = ",")
 
 #PART 4: Importing and cleaning User file 
-
-#Load yelp_bus_rev.csv into data frame 'business_review_df';contains combined business and review info
-business_review_df <- read_csv("~/Foundations_Capstone/Wrangling/yelp_bus_rev.csv")
 
 #Stream in user data according to user id's in combined business/review data
 
 con_in <- file("~/Foundations_Capstone/Wrangling/yelp_academic_dataset_user.json")
 con_out <- file(tmp <-tempfile(), open = "wb")
 stream_in(con_in, handler = function(df) {
-  df <- df[df$user_id %in% business_review_df$user_id,]
+  df <- df[df$user_id %in% yelp_bus_rev_clean$user_id,]
   df <- df %>%
     select(-type) %>%
     stream_out(con_out, pagesize = 10000)
