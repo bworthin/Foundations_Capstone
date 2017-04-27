@@ -65,8 +65,13 @@ write.table(yelp_review_clean, "~/Foundations_Capstone/Wrangling/yelp_review_cle
 #PART 3: Combining business and review data
 yelp_bus_rev_clean <- left_join(yelp_business_clean, yelp_review_clean, by = "business_id")
 
+#remove review and business files from workspace to free up memory
+rm(yelp_business_clean)
+rm(yelp_review_clean)
+
 #write combined business and review data frame to csv
 write.table(yelp_bus_rev_clean, "~/Foundations_Capstone/Wrangling/yelp_bus_rev_clean.csv", row.names = FALSE, sep = ",")
+
 
 #PART 4: Importing and cleaning User file 
 
@@ -84,19 +89,29 @@ close(con_out)
 
 user_clean <- stream_in(file(tmp))
 
-#Rename variables
-#rename all votes columns with '_given_byuser' suffix
+write.table(yelp_bus_rev_clean, "~/Foundations_Capstone/Wrangling/yelp_bus_rev_clean.csv", row.names = FALSE, sep = ",")
 
-#rename all compliment variables with '_received_byuser' suffix
+#Remove yelp_bus_rev_clean from workspace to free up memory
+rm(yelp_bus_rev_clean)
 
-#rename average_stars to average_stars_given_byuser
+#Rename average_stars to average_stars_given_byuser
 user_clean <- rename(user_clean, avg_stars_given_byuser = average_stars)
 
-#Create new variables 'total_votes_given_byuser' (count of all votes given) and 'total_comps_rec_byuser' 
-#(count of all compliments received)
+#replace "None" with NA in 'elite' variable and in 'friends' variable
 
 #Create new variables 'elite_years' (number of years user had elite status), 'friends_count' (number
 #of friends user has)
+
+
+#Create new variables 'all_votes_given_byuser' (count of all votes given) and 'all_comps_rec_byuser' 
+#(count of all compliments received)
+user_clean$all_comps_rec_byuser <- user_clean %>%
+  select(compliment_hot:compliment_photos) %>%
+  rowSums(na.rm = TRUE)
+
+user_clean$all_votes_given_byuser <- user_clean %>%
+  select(useful:cool) %>%
+  rowSums(na.rm = TRUE)
 
 #Create new variable 'yelping_since' (calculates how many years since user joined yelp)
 
