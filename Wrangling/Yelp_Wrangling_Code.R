@@ -99,12 +99,16 @@ user_clean <- rename(user_clean, avg_stars_given_byuser = average_stars)
 
 #replace "None" with NA in 'elite' variable and in 'friends' variable
 
-#Create new variables 'elite_years' (number of years user had elite status), 'friends_count' (number
-#of friends user has)
+user_clean$elite[str_detect(user_clean$elite, "None")] <- NA
+user_clean$friends[str_detect(user_clean$friends, "None")] <- NA
+
+#Create new variables 'years_elite' (number of years user had elite status), 'friends_count' (number
+#of friends user has) #need to count number of items in each element[each user is list element?] of 
+#the list (each year or friend is item in the element?)
 
 
-#Create new variables 'all_votes_given_byuser' (count of all votes given) and 'all_comps_rec_byuser' 
-#(count of all compliments received)
+#Create new variables 'all_votes_given_byuser' (sum of all votes given) and 'all_comps_rec_byuser' 
+#(sum of all compliments received)
 user_clean$all_comps_rec_byuser <- user_clean %>%
   select(compliment_hot:compliment_photos) %>%
   rowSums(na.rm = TRUE)
@@ -113,7 +117,8 @@ user_clean$all_votes_given_byuser <- user_clean %>%
   select(useful:cool) %>%
   rowSums(na.rm = TRUE)
 
-#Create new variable 'yelping_since' (calculates how many years since user joined yelp)
+#Create new variable 'years_yelping' (calculates how many years since user joined yelp)
+user_clean$years_yelping <- 
 
 #Write to new csv file
 yelp_user_clean <- user_clean
