@@ -98,14 +98,16 @@ rm(yelp_bus_rev_clean)
 user_clean <- rename(user_clean, avg_stars_given_byuser = average_stars)
 
 #replace "None" with NA in 'elite' variable and in 'friends' variable
-
 user_clean$elite[str_detect(user_clean$elite, "None")] <- NA
 user_clean$friends[str_detect(user_clean$friends, "None")] <- NA
 
 #Create new variables 'years_elite' (number of years user had elite status), 'friends_count' (number
 #of friends user has) #need to count number of items in each element[each user is list element?] of 
 #the list (each year or friend is item in the element?)
+dfl$col3 <- ifelse(is.na(dfl$col1), 0, lapply(dfl$col1, length))
 
+user_clean$years_elite <- ifelse(is.na(user_clean$elite), 0, lapply(user_clean$elite, length))
+user_clean$friends_count <- ifelse(is.na(user_clean$friends), 0, lapply(user_clean$friends, length))
 
 #Create new variables 'all_votes_given_byuser' (sum of all votes given) and 'all_comps_rec_byuser' 
 #(sum of all compliments received)
