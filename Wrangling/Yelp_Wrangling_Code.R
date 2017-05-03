@@ -89,8 +89,6 @@ close(con_out)
 
 user_clean <- stream_in(file(tmp))
 
-write.table(yelp_bus_rev_clean, "~/Foundations_Capstone/Wrangling/yelp_bus_rev_clean.csv", row.names = FALSE, sep = ",")
-
 #Remove yelp_bus_rev_clean from workspace to free up memory
 rm(yelp_bus_rev_clean)
 
@@ -102,12 +100,13 @@ user_clean$elite[str_detect(user_clean$elite, "None")] <- NA
 user_clean$friends[str_detect(user_clean$friends, "None")] <- NA
 
 #Create new variables 'years_elite' (number of years user had elite status), 'friends_count' (number
-#of friends user has) #need to count number of items in each element[each user is list element?] of 
-#the list (each year or friend is item in the element?)
-dfl$col3 <- ifelse(is.na(dfl$col1), 0, lapply(dfl$col1, length))
+#of friends user has) by calculating length of list for each observation of those variables 
+user_clean$years_elite <- ifelse(is.na(user_clean$elite), 0, sapply(user_clean$elite, length))
+user_clean$friends_count <- ifelse(is.na(user_clean$friends), 0, sapply(user_clean$friends, length))
 
-user_clean$years_elite <- ifelse(is.na(user_clean$elite), 0, lapply(user_clean$elite, length))
-user_clean$friends_count <- ifelse(is.na(user_clean$friends), 0, lapply(user_clean$friends, length))
+#remove nested variables 'elite' and 'friends' since we've extracted data we need from them 
+user_clean <- user_clean %>%
+  select(-elite, -friends)
 
 #Create new variables 'all_votes_given_byuser' (sum of all votes given) and 'all_comps_rec_byuser' 
 #(sum of all compliments received)
@@ -120,8 +119,9 @@ user_clean$all_votes_given_byuser <- user_clean %>%
   rowSums(na.rm = TRUE)
 
 #Create new variable 'years_yelping' (calculates how many years since user joined yelp)
-user_clean$years_yelping <- 
-
+user_clean$yelping_since <- as.Date(user_clean$yelping_since)
+user_clean$years_yelping <- as.numeric(difftime(Sys.Date(), user_clean$yelping_since)/365.25)
+ 
 #Write to new csv file
 yelp_user_clean <- user_clean
 write.table(yelp_user_clean, "~/Foundations_Capstone/Wrangling/yelp_user_clean.csv", row.names = FALSE, sep = ",")
